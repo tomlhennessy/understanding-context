@@ -229,3 +229,75 @@
     • Binding Context: Use `bind` to attach a specific `this` context to a function
     • Result of `bind`: Returns a new function with a fixed `this` value
     • Use Cases: Useful for callbacks and when context might be lost
+
+
+# Understanding `call and `apply` in JavaScript
+
+* Key Concepts
+
+    1. Purpose:
+        • `call` and `apply`: Both methods invoke a function immediately with a specified `this` context
+
+    2. Difference from `bind`:
+        • `bind`: Returns a new function with a set `this` context, to be called later
+        • `call` and `apply` invoke the function immediately with the specified context
+
+* Syntax
+
+    1. Using `call`:
+        ```js
+        func.call(context, arg1, arg1, ...);
+        ```
+            • Invokes `func` with `this` set to `context` and arguments passed individually
+
+    2. Using `apply`:
+        ```js
+        func.apply(context, [arg1, arg2, ...]);
+        ```
+            • Invokes `func` with `this` set to `context` and arguments passed as an array
+
+    3. Remembering the Difference:
+
+        • a is for array (apply)
+
+        • c is for comma (call)
+
+* Example
+    • Using `call` and `apply` to make a dog meow like a cat:
+
+    ```js
+    class Dog {
+        constructor(name) {
+            this.name = name;
+        }
+    }
+
+    class Cat {
+        constructor(name) {
+            this.name = name;
+        }
+
+        purrNTimes(n) {
+            for (let i = 0; i < n; i++) {
+                console.log(`${this.name} says: meow`);
+            }
+        }
+    }
+
+    let dog = new Dog('Fido');
+    let cat = new Cat('Meowser');
+
+    // Using `call`
+    cat.purrNTimes.call(dog, 5); // Fido says: meow (5 times)
+
+    // Using `apply`
+    cat.purrNTimes.apply(dog, [5]); // Fido says: meow (5 times)
+    ```
+
+* Summary
+
+    • Using `call` and `apply`:
+        - `call`: Invokes function with individual arguments
+        - `apply`: Invokes function with arguments in an array
+
+    • Common Use Case: Temporarily borrowing methods from one object and using them on another
